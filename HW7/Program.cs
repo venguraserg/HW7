@@ -16,8 +16,13 @@ namespace HW7
             Noteboock book = new Noteboock();
 
             book.Records = Autocomplete(100);
-
+            notebook.RemoveAt(12);
             foreach (var item in book.Records)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.WriteLine("*******************************************");
+            foreach (var item in notebook)
             {
                 Console.WriteLine(item.ToString());
             }
@@ -31,7 +36,7 @@ namespace HW7
             List<Note> notebook = new List<Note>();
             for (int i = 0; i < items; i++)
             {
-                notebook.Add(new Note("content" + i, "creator" + i, Status.Actual));
+                notebook.Add(new Note("content" + i, "creator" + (items-i), Status.Actual));
             }
             return notebook;
         }
