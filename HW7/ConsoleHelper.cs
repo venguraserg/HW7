@@ -24,10 +24,18 @@ namespace HW7
 
         public static void PrintNotes(List<Note> notebook)
         {
-            foreach (var item in notebook)
+            if (notebook.Count == 0)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine("Записей нет");
             }
+            else
+            {
+                foreach (var item in notebook)
+                {
+                    Console.WriteLine(item.ToString());
+                }
+            }
+            
         }
 
     }
