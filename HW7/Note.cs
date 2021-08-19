@@ -12,12 +12,12 @@ namespace HW7
         public int Id { get; }
         public DateTime CreateTime { get; }
         public string Content { get; set; }
-        public string Creator { get; set; }
+        public Creator Creator { get; set; }
         public Status Status { get; set; }
         private static int _count = 0;
         //конструктор
 
-        public Note(string content, string creator, Status status)
+        public Note(string content, Creator creator, Status status)
         {
             Id = _count++;
             CreateTime = DateTime.Now;
@@ -27,7 +27,7 @@ namespace HW7
         }
         public override string ToString()
         {
-            return $"{Id}  {CreateTime}  {Content}  {Creator}   {Status}";
+            return $"{Id,6}  {CreateTime}  {Content,-15}  {Creator.Name,15}   {Status}";
         }
     }
 }

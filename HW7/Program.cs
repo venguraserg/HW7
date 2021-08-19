@@ -4,41 +4,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HW7
 {
     class Program
     {
+        private const string MENU_1 = "1";
+        private const string MENU_2 = "2";
+        private const string MENU_3 = "3";
+        private const string MENU_4 = "4";
+        private const string QUIT = "x";
+
+
         static void Main(string[] args)
         {
             List<Note> notebook = new List<Note>();
-            notebook = Autocomplete(100);
-
-            Noteboock book = new Noteboock();
-
-            book.Records = Autocomplete(100);
-            notebook.RemoveAt(12);
-            foreach (var item in book.Records)
+            //notebook = ConsoleHelper.Autocomplete(100);
+            bool quit = false;
+            while (!quit)
             {
-                Console.WriteLine(item.ToString());
-            }
-            Console.WriteLine("*******************************************");
-            foreach (var item in notebook)
-            {
-                Console.WriteLine(item.ToString());
+                
+                switch (Console.ReadLine().ToLower())
+                {
+                    case MENU_1:
+                        Console.Clear();
+                        Console.WriteLine("Menu_1");
+                        ConsoleHelper.PrintNotes(notebook);
+
+
+                        break;
+                    case MENU_2:
+                        notebook = ConsoleHelper.Autocomplete(10);
+                        Console.Clear();
+                        Console.WriteLine("Menu_2");
+                        break;
+                    case MENU_3:
+                        Console.Clear();
+                        Console.WriteLine("Menu_3");
+                        break;
+                    case MENU_4:
+                        Console.Clear();
+                        //Console.WriteLine("Menu_4");
+                        break;
+                    case QUIT:
+                        quit = true;
+                        break;
+                    default:
+                        break;
+                }
             }
 
+
+            
+
+            
             Console.WriteLine("Конец программы. Для продолжения нажмите любую клавишу . . . ");
             Console.ReadKey();
         }
-
-        private static List<Note> Autocomplete(int items)
-        {
-            List<Note> notebook = new List<Note>();
-            for (int i = 0; i < items; i++)
-            {
-                notebook.Add(new Note("content" + i, "creator" + (items-i), Status.Actual));
-            }
-            return notebook;
-        }
+        
+        
     }
 }
