@@ -9,25 +9,39 @@ namespace HW7
     public class Note
     {
         //свойства
-        public int Id { get; }
-        public DateTime CreateTime { get; }
+        
+        public DateTime CreateDate { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
-        public Creator Creator { get; set; }
+        public string Creator { get; set; }
         public Status Status { get; set; }
         private static int _count = 0;
         //конструктор
 
-        public Note(string content, Creator creator, Status status)
+        public Note()
         {
-            Id = _count++;
-            CreateTime = DateTime.Now;
+        
+        }
+
+        public Note(string title, string content, string creator, Status status)
+        {
+            CreateDate = DateTime.Now.Date;
+            Title = title;
             Content = content;
             Creator = creator;
             Status = status;
         }
-        public override string ToString()
+
+        public Note(DateTime createDate, string title, string content, string creator, Status status)
         {
-            return $"{Id,6}  {CreateTime}  {Content,-15}  {Creator.Name,15}   {Status}";
+            CreateDate = createDate;
+            Title = title;
+            Content = content;
+            Creator = creator;
+            Status = status;
         }
+
+
+
     }
 }

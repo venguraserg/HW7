@@ -8,7 +8,7 @@ namespace HW7
 {
     public enum Status
     {
-        Important,
+        Important=1,
         Actual,
         NotRelevant
 
