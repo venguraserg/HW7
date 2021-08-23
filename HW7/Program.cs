@@ -32,9 +32,12 @@ namespace HW7
             {
                 ConsoleHelper.ReadFileData(patch, ref notebook);
             }
-            
-             
 
+            Repository repository = new Repository();
+            repository.AddNote();
+
+
+            repository.Notes.Add(new Note());
             // Меню 
 
             bool quit = false;
