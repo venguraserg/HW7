@@ -91,6 +91,7 @@ namespace HW7
                 if (isCorrectParse == false && (number < 0 || number > amountNotes))
                 {
                     Console.WriteLine("Не корректный ввод, попробуйте еще раз...");
+
                 }
             } while (isCorrectParse == false && (number<0|| number> amountNotes));
             return number;
