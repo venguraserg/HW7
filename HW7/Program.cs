@@ -16,7 +16,8 @@ namespace HW7
             //Инициализация параметров
             Menu.Init();
             Repository repository = new Repository();
-            
+
+            repository.AutocompliteRepository(25);
 
 
             // Запуск цикла программы 

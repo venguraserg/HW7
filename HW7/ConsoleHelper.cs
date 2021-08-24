@@ -14,25 +14,7 @@ namespace HW7
         
         
 
-        public static void PrintNotes(List<Note> notebook)
-        {
-            if (notebook.Count == 0)
-            {
-                Console.WriteLine("Записей нет");
-            }
-            else
-            {
-                Console.WriteLine("**********************************************************************************");
-                Console.WriteLine($"  №     CreateTime            Content            Creator      Status");
-                Console.WriteLine("**********************************************************************************");
-
-                for (var i=0; i<notebook.Count();i++)
-                {
-                    Console.WriteLine($"{(i+1),5}   {notebook[i].CreateDate.ToLongDateString(),3}   {notebook[i].Title,-5}   {notebook[i].Creator,-5}   {notebook[i].Status,-5}");
-                }
-            }
-            
-        }
+        
         public static List<Note> ReadFileData(string patch, ref List<Note> dataFromFile)
         {
             var fileText = File.ReadAllLines(patch);
@@ -63,15 +45,12 @@ namespace HW7
             }
         }
 
-        internal static void PrintOneNote(List<Note> notebook, int numberNote)
-        {
-            Console.WriteLine("Название заметки  :" + notebook[numberNote].Title);
-            Console.WriteLine("Дата создания     :" + notebook[numberNote].CreateDate);
-            Console.WriteLine("Создатель         :" + notebook[numberNote].Creator);
-            Console.WriteLine("Статус            :" + notebook[numberNote].Status);
-            Console.WriteLine("Содержание заметки:" + notebook[numberNote].Content);
-        }
-
+        
+        /// <summary>
+        /// Метод ввода номер заметки
+        /// </summary>
+        /// <param name="amountNotes">размер списка заметок</param>
+        /// <returns></returns>
         internal static int InputNumberNote(int amountNotes)
         {
             int number;
@@ -79,31 +58,37 @@ namespace HW7
             do
             {
                 isCorrectParse = int.TryParse(Console.ReadLine(), out number);
-                if (isCorrectParse == false && (number < 0 || number > amountNotes))
+                if (isCorrectParse == false || (number < 1 || number > amountNotes))
                 {
                     Console.WriteLine("Не корректный ввод, попробуйте еще раз...");
 
                 }
-            } while (isCorrectParse == false && (number<0|| number> amountNotes));
-            return number;
+            } while (isCorrectParse == false || (number<1|| number> amountNotes));
+            return number-1;
         }
-
         
-
-        internal static void AddNotes(ref List<Note> notebook)
+        
+        
+        /// <summary>
+         /// Метод ввода номер заметки
+         /// </summary>
+         /// <param name="amountNotes">размер списка заметок</param>
+         /// <returns></returns>
+        internal static Status InputStatusNote()
         {
-            Console.WriteLine("Введите название заметки:");
-            string title = Console.ReadLine();
-            Console.WriteLine("Введите вашу заметку:");
-            string content = Console.ReadLine();
-            Console.WriteLine("Введите создателя заметки:");
-            string creator = Console.ReadLine();
-            Console.WriteLine($"Выберите статус 1 - Важная 2 - Актуальная 3 - Не важная");
-            string status = Console.ReadLine();
+            Status status;
+            bool isCorrectParse;
+            do
+            {
+                Console.WriteLine($"Выберите статус 1 - Важная 2 - Актуальная 3 - Не важная");
+                isCorrectParse = Status.TryParse(Console.ReadLine(), out status);
+                if (isCorrectParse == false || (status < Status.Important || status > Status.NotRelevant))
+                {
+                    Console.WriteLine("Не корректный ввод, попробуйте еще раз...");
 
-            Note newNote = new Note(title,content, creator, (Status)int.Parse(status));
-            notebook.Add(newNote);
-            Console.WriteLine("Заявка внесена . . .");
+                }
+            } while (isCorrectParse == false || (status < Status.Important || status > Status.NotRelevant));
+            return status;
         }
 
         /// <summary>
@@ -135,5 +120,29 @@ namespace HW7
             }
             return result;
         }
+        /// <summary>
+        /// Получение случайной строки
+        /// </summary>
+        /// <param name="сharacters">количество символов</param>
+        /// <param name="r">Обьект класса Random</param>
+        /// <returns></returns>
+        public static string GetRandomString(int сharacters, Random r)
+        {
+            char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+
+            
+            //Random r = new Random();
+
+            string text = string.Empty;
+
+            for (int i = 0; i < сharacters; i++)
+            {
+                
+                char a = letters[r.Next(0, 25)];
+                text += a.ToString(); 
+            }
+            return text;
+        }
+
     }
 }
