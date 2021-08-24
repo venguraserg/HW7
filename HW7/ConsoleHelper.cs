@@ -12,16 +12,7 @@ namespace HW7
         
 
         
-        public static List<Note> Autocomplete(int items, ref List<Note> notebook)
-        {
-            
-            var random = new Random();
-            for (int i = 0; i < items; i++)
-            {
-                notebook.Add(new Note("title" + random.Next(0, 10000000), "content" + random.Next(0, 10000000), ("creator" + (random.Next(0, 10000000) - i)), (Status)random.Next(1, 4)));
-            }
-            return notebook;
-        }
+        
 
         public static void PrintNotes(List<Note> notebook)
         {
@@ -97,20 +88,7 @@ namespace HW7
             return number;
         }
 
-        internal static int InputNumber()
-        {
-            int number;
-            bool isCorrectParse;
-            do
-            {
-                isCorrectParse = int.TryParse(Console.ReadLine(), out number);
-                if (isCorrectParse == false && number < 0 )
-                {
-                    Console.WriteLine("Не корректный ввод, попробуйте еще раз...");
-                }
-            } while (isCorrectParse == false && number < 0 );
-            return number;
-        }
+        
 
         internal static void AddNotes(ref List<Note> notebook)
         {

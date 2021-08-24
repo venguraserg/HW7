@@ -16,24 +16,62 @@ namespace HW7
         /// </summary>
         public List<Note> Notes { get; set; }
 
+        /// <summary>
+        /// Конструктор репозитория
+        /// </summary>
+        public Repository()
+        {
+            Notes = new List<Note>();
+        }
 
         /// <summary>
-        /// Метод добавления новой записи в репозиторий
+        /// Метод добавления записи в репозиторий
         /// </summary>
-        public void AddNote()
+        /// <param name="title">Заголовок записи</param>
+        /// <param name="content">Содержание записи</param>
+        /// <param name="creator">Создатель записи</param>
+        /// <param name="status">Статус записи</param>
+        internal void AddNote(string title, string content, string creator, Status status)
         {
-            Console.WriteLine("Введите название заметки:");
-            string title = Console.ReadLine();
-            Console.WriteLine("Введите вашу заметку:");
-            string content = Console.ReadLine();
-            Console.WriteLine("Введите создателя заметки:");
-            string creator = Console.ReadLine();
-            Console.WriteLine($"Выберите статус 1 - Важная 2 - Актуальная 3 - Не важная");
-            string status = Console.ReadLine();
+            Notes.Add(new Note(title, content, creator, status));
+        }
 
-            Note newNote = new Note(title, content, creator, (Status)int.Parse(status));
-            Notes.Add(newNote);
-            Console.WriteLine("Заявка внесена . . .");
+        /// <summary>
+        /// Метод изменения записи
+        /// </summary>
+        internal void AutocompliteRepository()
+        {
+
+        }
+
+        /// <summary>
+        /// Метод вывода всех записей в коротком, с заголовками без содержания
+        /// </summary>
+        internal void PrintAllNote() 
+        {
+            
+        }
+
+        /// <summary>
+        /// Метод вывода одной записи в развернутом виде
+        /// </summary>
+        internal void PrintOneNote()
+        {
+
+        }
+
+        /// <summary>
+        /// Метод изменения записи
+        /// </summary>
+        internal void UpdateNote()
+        {
+
+        }
+        /// <summary>
+        /// Метод удаления записи
+        /// </summary>
+        internal void DeleteNote()
+        {
 
         }
     }

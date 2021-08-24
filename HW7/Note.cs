@@ -15,7 +15,7 @@ namespace HW7
         public string Content { get; set; }
         public string Creator { get; set; }
         public Status Status { get; set; }
-        private static int _count = 0;
+        
         //конструктор
 
         public Note()
