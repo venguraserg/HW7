@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -127,7 +128,7 @@ namespace HW7
         /// </summary>
         /// <param name="rep">репозиторий который серилизуем</param>
         /// <param name="path">путь к файлу</param>
-        internal static void SerializeRepository(Repository rep, string path)
+        internal static void XmlSerializeRepository(Repository rep, string path)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof (Repository));
             Stream fStream = new FileStream(path, FileMode.Create, FileAccess.Write);
@@ -140,13 +141,39 @@ namespace HW7
         /// </summary>
         /// <param name="path">путь к файлу</param>
         /// <returns></returns>
-        internal static Repository DeserializeRepository(string path)
+        internal static Repository XmlDeserializeRepository(string path)
         {
             Repository tempRepository = new Repository();
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Repository));
             Stream fStream = new FileStream(path, FileMode.Open, FileAccess.Read);
             tempRepository = xmlSerializer.Deserialize(fStream) as Repository;
             fStream.Close();
+            return tempRepository;
+        }
+
+        /// <summary>
+        /// Серилизация в Json
+        /// </summary>
+        /// <param name="rep">репозиторий который серилизуем</param>
+        /// <param name="path">путь к файлу</param>
+        internal static void JsonSerializeRepository(Repository rep, string path)
+        {
+            string json = JsonConvert.SerializeObject(rep);
+            File.WriteAllText(path, json);
+        }
+
+        /// <summary>
+        /// Десерилизация из json
+        /// </summary>
+        /// <param name="path">путь к файлу</param>
+        /// <returns></returns>
+        internal static Repository JsonDeserializeRepository(string path)
+        {
+            Repository tempRepository = new Repository();
+
+            string json = File.ReadAllText(path);
+            tempRepository = JsonConvert.DeserializeObject<Repository>(json);
+            
             return tempRepository;
         }
 

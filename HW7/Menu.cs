@@ -131,8 +131,8 @@ namespace HW7
                     quit = false;
                     if (ConsoleHelper.EnterYesNo("Хотите сохранить данные (Y/N):"))
                     {
-                        ConsoleHelper.SerializeRepository(repository, "xmlRep.xml");
-                        // ConsoleHelper.WriteDataToFile(patch, notebook);
+                        ConsoleHelper.XmlSerializeRepository(repository, "xmlRep.xml");
+                        //ConsoleHelper.JsonSerializeRepository(repository, "jsonRep.json");
                     }
                     Console.WriteLine("");
                     break;
