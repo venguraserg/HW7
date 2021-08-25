@@ -133,6 +133,15 @@ namespace HW7
         {
             Notes.RemoveAt(noteIndex);
         }
-        
+
+        internal void DeleteAllNote()
+        {
+            for (int i = Notes.Count; i != 0; i--)
+            {
+                Notes.RemoveAt(i-1);
+            }
+            
+            
+        }
     }
 }

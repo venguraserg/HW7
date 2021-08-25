@@ -72,7 +72,7 @@ namespace HW7
 
                     break;
                 //кейс удаления заметки
-                case "del":
+                case "dell":
                     Console.WriteLine("*******************************************************************");
                     Console.WriteLine("**                        Удаление заметки                       **");
                     Console.WriteLine("*******************************************************************");
@@ -81,6 +81,17 @@ namespace HW7
                     repository.PrintOneNote(numberNote);
                     repository.DeleteNote(numberNote);
                     Console.WriteLine("Заметка удалена . . .");
+                    break;
+
+                //кейс удаления заметки
+                case "dell all":
+                    Console.WriteLine("*******************************************************************");
+                    Console.WriteLine("**                     Удаление всех заметки                     **");
+                    Console.WriteLine("*******************************************************************");
+                    
+                    repository.DeleteAllNote();
+
+                    Console.WriteLine("Все заметки удалены . . .");
                     break;
 
                 //кейс автоматического добавления заметки
@@ -100,7 +111,7 @@ namespace HW7
                     Console.WriteLine(" - /add       - добавить заметку");
                     Console.WriteLine(" - /add auto  - добавить заметки автоматически");
                     Console.WriteLine(" - /edit      - изменить заметку");
-                    Console.WriteLine(" - /del       - удалить заметку");
+                    Console.WriteLine(" - /dell      - удалить заметку");
                     Console.WriteLine(" - /clear     - очистить экран");
 
 
