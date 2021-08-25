@@ -110,9 +110,9 @@ namespace HW7
 
                 //кейс "СПРАВКА"
                 case "help":                    
-                    Console.WriteLine("*******************************************************");
-                    Console.WriteLine("**                  Cписок конманд:                  **");
-                    Console.WriteLine("*******************************************************");
+                    Console.WriteLine("*******************************************************************");
+                    Console.WriteLine("**                         Cписок конманд:                       **");
+                    Console.WriteLine("*******************************************************************");
                     Console.WriteLine(" - /help      - вывод списка команд");
                     Console.WriteLine(" - /view      - просмотр заметок");
                     Console.WriteLine(" - /view note - детальный просмотр заметки");
@@ -132,7 +132,7 @@ namespace HW7
                     if (ConsoleHelper.EnterYesNo("Хотите сохранить данные (Y/N):"))
                     {
                         ConsoleHelper.XmlSerializeRepository(repository, "xmlRep.xml");
-                        //ConsoleHelper.JsonSerializeRepository(repository, "jsonRep.json");
+                        ConsoleHelper.JsonSerializeRepository(repository, "jsonRep.json");
                     }
                     Console.WriteLine("");
                     break;

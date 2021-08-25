@@ -21,8 +21,8 @@ namespace HW7
 
             if (!isFileEmpty)
             {
-                //repository = ConsoleHelper.XmlDeserializeRepository(patch);
-                repository = ConsoleHelper.JsonDeserializeRepository("jsonRep.json");
+                repository = ConsoleHelper.XmlDeserializeRepository(patch);
+                //repository = ConsoleHelper.JsonDeserializeRepository("jsonRep.json");
             }
             else 
             {
