@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HW7
 {
@@ -17,7 +13,9 @@ namespace HW7
         public Status Status { get; set; }
         
         //конструктор
-
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
         public Note()
         {
         

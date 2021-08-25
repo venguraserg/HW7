@@ -1,51 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace HW7
 {
     public static class ConsoleHelper
-    {
-        
-
-        
-        
-
-        
-        public static List<Note> ReadFileData(string patch, ref List<Note> dataFromFile)
-        {
-            var fileText = File.ReadAllLines(patch);
-            char[] charSeparator = new char[] { ',' };
-            
-
-            for (var i = 0; i < fileText.Length; i++)
-            {
-
-                var item = fileText[i].Split(charSeparator);
-                Note newNote = new Note(DateTime.Parse(item[0]), item[1], item[2], item[3],(Status)int.Parse(item[4]));
-
-                dataFromFile.Add(newNote);
-            }
-
-            return dataFromFile;
-        }
-        public static void WriteDataToFile(string patch, List<Note> notebook)
-        {
-            using (StreamWriter sw = new StreamWriter(patch))
-            {
-                Note writeNote = new Note();
-                for (int i = 0; i < notebook.Count; i++)
-                {
-                    writeNote = notebook[i];
-                    sw.WriteLine($"{writeNote.CreateDate.Date},{writeNote.Title},{writeNote.Content},{writeNote.Creator},{(int)writeNote.Status}");
-                }
-            }
-        }
-
-        
+    {        
         /// <summary>
         /// Метод ввода номер заметки
         /// </summary>
@@ -66,9 +26,7 @@ namespace HW7
             } while (isCorrectParse == false || (number<1|| number> amountNotes));
             return number-1;
         }
-        
-        
-        
+       
         /// <summary>
          /// Метод ввода номер заметки
          /// </summary>
@@ -120,6 +78,7 @@ namespace HW7
             }
             return result;
         }
+
         /// <summary>
         /// Получение случайной строки
         /// </summary>
@@ -142,6 +101,53 @@ namespace HW7
                 text += a.ToString(); 
             }
             return text;
+        }
+
+        /// <summary>
+        /// Метод ввода положительного числа
+        /// </summary>
+        /// <returns></returns>
+        internal static int InputNumber()
+        {
+            int number;
+            bool isCorrectParse;
+            do
+            {
+                isCorrectParse = int.TryParse(Console.ReadLine(), out number);
+                if (isCorrectParse == false && number < 0)
+                {
+                    Console.WriteLine("Не корректный ввод, попробуйте еще раз...");
+                }
+            } while (isCorrectParse == false && number < 0);
+
+            return number;
+        }
+        /// <summary>
+        /// Серилизация в XML
+        /// </summary>
+        /// <param name="rep">репозиторий который серилизуем</param>
+        /// <param name="path">путь к файлу</param>
+        internal static void SerializeRepository(Repository rep, string path)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof (Repository));
+            Stream fStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            xmlSerializer.Serialize(fStream, rep);
+            fStream.Close();
+        }
+
+        /// <summary>
+        /// Десерилизация из XML
+        /// </summary>
+        /// <param name="path">путь к файлу</param>
+        /// <returns></returns>
+        internal static Repository DeserializeRepository(string path)
+        {
+            Repository tempRepository = new Repository();
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Repository));
+            Stream fStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            tempRepository = xmlSerializer.Deserialize(fStream) as Repository;
+            fStream.Close();
+            return tempRepository;
         }
 
     }

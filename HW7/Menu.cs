@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HW7
 {
@@ -57,7 +53,7 @@ namespace HW7
                     Console.WriteLine("**               Автоматическое заполнение репозитория           **");
                     Console.WriteLine("*******************************************************************");
                     Console.Write("Введите число вносимых элементов: ");
-                    var amount = InputNumber();
+                    var amount = ConsoleHelper.InputNumber();
                     repository.AutocompliteRepository(amount);
                     Console.WriteLine("Данные успешно внесены");
                     break;
@@ -69,7 +65,10 @@ namespace HW7
                     Console.Write(">Введите номер заметки: ");
                     numberNote = ConsoleHelper.InputNumberNote(repository.Notes.Count);
                     repository.PrintOneNote(numberNote);
-                    ConsoleHelper.InputStatusNote();
+                    repository.UpdateNote(numberNote);
+
+
+                    //ConsoleHelper.InputStatusNote();
 
                     break;
                 //кейс удаления заметки
@@ -113,6 +112,7 @@ namespace HW7
                     quit = false;
                     if (ConsoleHelper.EnterYesNo("Хотите сохранить данные (Y/N):"))
                     {
+                        ConsoleHelper.SerializeRepository(repository, "xmlRep.xml");
                         // ConsoleHelper.WriteDataToFile(patch, notebook);
                     }
                     Console.WriteLine("");
@@ -127,48 +127,8 @@ namespace HW7
             return quit;
         }
 
-        internal static void Init()
-        {
-            Console.WriteLine("*******************************************************************");
-            Console.WriteLine("**                       ЕЖЕДНЕВНИК v0.0.1                       **");
-            Console.WriteLine("**           Для получения списка команд введите /help           **");
-            Console.WriteLine("*******************************************************************");
-
-            //string patch = "db.csv";
-            //if (File.Exists(patch) == false)
-            //{
-            //    using (File.Create(patch)) { };
-            //}
-            //bool isFileEmpty = string.IsNullOrEmpty(File.ReadAllText(patch));
-
-            //List<Note> notebook = new List<Note>();
-
-            //if (!isFileEmpty)
-            //{
-            //    ConsoleHelper.ReadFileData(patch, ref notebook);
-            //}
-
-
-        }
-        /// <summary>
-        /// Метод ввода положительного числа
-        /// </summary>
-        /// <returns></returns>
-        internal static int InputNumber()
-        {
-            int number;
-            bool isCorrectParse;
-            do
-            {
-                isCorrectParse = int.TryParse(Console.ReadLine(), out number);
-                if (isCorrectParse == false && number < 0)
-                {
-                    Console.WriteLine("Не корректный ввод, попробуйте еще раз...");
-                }
-            } while (isCorrectParse == false && number < 0);
-
-            return number;
-        }
+        
+        
 
        
     }

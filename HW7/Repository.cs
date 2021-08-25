@@ -102,7 +102,29 @@ namespace HW7
         /// </summary>
         internal void UpdateNote(int noteIndex)
         {
-            Notes[noteIndex] = new Note("111", "222", "333", Status.Actual);
+            DateTime createData = Notes[noteIndex].CreateDate;
+            string title = Notes[noteIndex].Title;
+            string content = Notes[noteIndex].Content;
+            Status status = Notes[noteIndex].Status;
+            string creator = Notes[noteIndex].Creator;
+
+            if(ConsoleHelper.EnterYesNo("Желаете изменить заголовок? (Y/N)"))
+            {
+                Console.WriteLine("Введите новый заголовок");
+                title = Console.ReadLine();
+            }
+            if (ConsoleHelper.EnterYesNo("Желаете изменить текст заметки? (Y/N)"))
+            {
+                Console.WriteLine("Введите новый заголовок");
+                content = Console.ReadLine();
+            }
+            if (ConsoleHelper.EnterYesNo("Желаете изменить статус? (Y/N)"))
+            {
+
+                status = ConsoleHelper.InputStatusNote();
+            }  
+
+            Notes[noteIndex] = new Note(createData, title, content, creator, status);
         }
         /// <summary>
         /// Метод удаления записи
@@ -111,5 +133,6 @@ namespace HW7
         {
             Notes.RemoveAt(noteIndex);
         }
+        
     }
 }

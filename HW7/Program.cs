@@ -14,10 +14,11 @@ namespace HW7
         static void Main(string[] args)
         {
             //Инициализация параметров
-            Menu.Init();
+            
             Repository repository = new Repository();
+            Init.Initialization(ref repository);
 
-            repository.AutocompliteRepository(25);
+            
 
 
             // Запуск цикла программы 
