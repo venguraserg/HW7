@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace HW7
 {
@@ -81,6 +83,12 @@ namespace HW7
                     repository.PrintOneNote(numberNote);
                     repository.DeleteNote(numberNote);
                     Console.WriteLine("Заметка удалена . . .");
+
+                    //var ss = from i in repository.Notes
+                    //         orderby i.CreateDate
+                    //         select i;
+                    //repository.Notes = (List<Note>)ss;
+
                     break;
 
                 //кейс удаления заметки

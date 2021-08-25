@@ -44,7 +44,7 @@ namespace HW7
             var random = new Random();
             for (int i = 0; i < item; i++)
             {
-                Notes.Add(new Note(ConsoleHelper.GetRandomString(5, random),
+                Notes.Add(new Note(new DateTime(2021,random.Next(1,13), random.Next(1, 30)), ConsoleHelper.GetRandomString(5, random),
                     ConsoleHelper.GetRandomString(150, random),
                     ConsoleHelper.GetRandomString(10, random), 
                     (Status)random.Next(1, 4)));
