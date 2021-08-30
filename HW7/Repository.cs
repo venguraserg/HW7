@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace HW7
     /// <summary>
     /// Класс репозитория
     /// </summary>
-    public class Repository
+    public class Repository 
     {
         /// <summary>
         ///  Свойство записи 
@@ -22,6 +23,11 @@ namespace HW7
         public Repository()
         {
             Notes = new List<Note>();
+        }
+
+        public Repository(List<Note> notes)
+        {
+            Notes = notes;
         }
 
         /// <summary>
@@ -74,5 +80,7 @@ namespace HW7
         {
             Notes.Clear();            
         }
+
+        
     }
 }

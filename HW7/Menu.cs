@@ -86,9 +86,18 @@ namespace HW7
                     else
                     {
                         var ss = from i in repository.Notes
-                                 orderby i.CreateDate
+                                 orderby i.Status
                                  select i;
-                        ConsoleHelper.PrintAllNotes(ss);
+
+                        List<Note> tempNotes = new List<Note>();
+                            
+                        foreach(var i in ss)
+                        {
+                            tempNotes.Add(i);
+                        }
+                        repository = new Repository(tempNotes);
+                        ConsoleHelper.PrintAllNotes(repository);
+                        
                     }
 
 
