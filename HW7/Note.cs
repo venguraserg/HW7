@@ -11,14 +11,14 @@ namespace HW7
         public string Content { get; set; }
         public string Creator { get; set; }
         public Status Status { get; set; }
-        
+
         //конструктор
         /// <summary>
         /// Конструктор по умолчанию
         /// </summary>
         public Note()
         {
-        
+
         }
 
         public Note(string title, string content, string creator, Status status)

@@ -49,99 +49,30 @@ namespace HW7
                     ConsoleHelper.GetRandomString(10, random), 
                     (Status)random.Next(1, 4)));
             }
-
-        }
-
-        /// <summary>
-        /// Метод вывода всех записей в коротком, с заголовками без содержания
-        /// </summary>
-        internal void PrintAllNotes() 
-        {
-            if (Notes.Count == 0)
-            {
-                Console.WriteLine("Записей нет");
-            }
-            else
-            {
-                Console.WriteLine("*******************************************************************");
-                Console.WriteLine($"|  №  | Дата создания |     Заголовок    |  Создатель |   Статус   |");
-                Console.WriteLine("*******************************************************************");
-
-                for (var i = 0; i < Notes.Count(); i++)
-                {
-                    Console.WriteLine($"|{(i + 1),5}|{Notes[i].CreateDate.ToShortDateString(),15}|{Notes[i].Title,18}|{Notes[i].Creator,12}|{Notes[i].Status,12}|");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Метод вывода одной записи в развернутом виде
-        /// </summary>
-        internal void PrintOneNote(int noteIndex)
-        {
-            if (Notes.Count == 0)
-            {
-                Console.WriteLine("Записей нет");
-            }
-            else
-            {
-
-                Console.WriteLine($"Заметка  №: {(noteIndex + 1)}");
-                Console.WriteLine($"Создана   : {Notes[noteIndex].CreateDate.ToShortDateString()}");
-                Console.WriteLine($"Статус    : {Notes[noteIndex].Status}");
-                Console.WriteLine($"Создатель : {Notes[noteIndex].Creator}");
-                Console.WriteLine($"Заголовок : {Notes[noteIndex].Title}");
-                Console.WriteLine("Текст Заметки:");
-                Console.WriteLine($"{Notes[noteIndex].Content}");
-
-            }
         }
 
         /// <summary>
         /// Метод изменения записи
         /// </summary>
-        internal void UpdateNote(int noteIndex)
+        internal void UpdateNote(Note editNote ,int noteIndex)
         {
-            DateTime createData = Notes[noteIndex].CreateDate;
-            string title = Notes[noteIndex].Title;
-            string content = Notes[noteIndex].Content;
-            Status status = Notes[noteIndex].Status;
-            string creator = Notes[noteIndex].Creator;
-
-            if(ConsoleHelper.EnterYesNo("Желаете изменить заголовок? (Y/N)"))
-            {
-                Console.WriteLine("Введите новый заголовок");
-                title = Console.ReadLine();
-            }
-            if (ConsoleHelper.EnterYesNo("Желаете изменить текст заметки? (Y/N)"))
-            {
-                Console.WriteLine("Введите новый заголовок");
-                content = Console.ReadLine();
-            }
-            if (ConsoleHelper.EnterYesNo("Желаете изменить статус? (Y/N)"))
-            {
-
-                status = ConsoleHelper.InputStatusNote();
-            }  
-
-            Notes[noteIndex] = new Note(createData, title, content, creator, status);
+            Notes[noteIndex] = editNote;
         }
+
         /// <summary>
-        /// Метод удаления записи
+        /// Метод удаления записи по индексу
         /// </summary>
         internal void DeleteNote(int noteIndex)
         {
             Notes.RemoveAt(noteIndex);
         }
 
+        /// <summary>
+        /// Метод удаления ВСЕХ записей
+        /// </summary>
         internal void DeleteAllNote()
         {
-            for (int i = Notes.Count; i != 0; i--)
-            {
-                Notes.RemoveAt(i-1);
-            }
-            
-            
+            Notes.Clear();            
         }
     }
 }

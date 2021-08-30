@@ -11,7 +11,6 @@ namespace HW7
             // Меню 
             bool quit = true;
             
-
             Console.Write(">/");
             switch (Console.ReadLine().ToLower())
             {
@@ -20,7 +19,7 @@ namespace HW7
                 Console.WriteLine("*******************************************************************");
                 Console.WriteLine("**                        Просмотр заметок                       **");
                 Console.WriteLine("*******************************************************************");
-                    repository.PrintAllNotes();
+                    ConsoleHelper.PrintAllNotes(repository);
                     break;
                 //кейс просмотра конкретной заявки
                 case "view note":
@@ -29,7 +28,7 @@ namespace HW7
                     Console.WriteLine("*******************************************************************");
                     Console.Write(">Введите номер заметки: ");
                     int numberNote = ConsoleHelper.InputNumberNote(repository.Notes.Count);
-                    repository.PrintOneNote(numberNote);                    
+                    ConsoleHelper.PrintOneNote(repository, numberNote);                    
                     break;
                 //кейс добавления заметки
                 case "add":                    
@@ -59,6 +58,7 @@ namespace HW7
                     repository.AutocompliteRepository(amount);
                     Console.WriteLine("Данные успешно внесены");
                     break;
+
                 //кейс редактирования заметки
                 case "edit":
                     Console.WriteLine("*******************************************************************");
@@ -66,28 +66,35 @@ namespace HW7
                     Console.WriteLine("*******************************************************************");
                     Console.Write(">Введите номер заметки: ");
                     numberNote = ConsoleHelper.InputNumberNote(repository.Notes.Count);
-                    repository.PrintOneNote(numberNote);
-                    repository.UpdateNote(numberNote);
-
-
-                    //ConsoleHelper.InputStatusNote();
-
+                    ConsoleHelper.PrintOneNote(repository, numberNote);
+                    ConsoleHelper.UpdateNote(repository,numberNote);
                     break;
+
                 //кейс удаления заметки
                 case "dell":
                     Console.WriteLine("*******************************************************************");
                     Console.WriteLine("**                        Удаление заметки                       **");
                     Console.WriteLine("*******************************************************************");
-                    Console.Write(">Введите номер заметки: ");
-                    numberNote = ConsoleHelper.InputNumberNote(repository.Notes.Count);
-                    repository.PrintOneNote(numberNote);
-                    repository.DeleteNote(numberNote);
-                    Console.WriteLine("Заметка удалена . . .");
+                    if(ConsoleHelper.EnterYesNo("Удалить по номеру? (Y/N)"))
+                    {
+                        Console.Write(">Введите номер заметки: ");
+                        numberNote = ConsoleHelper.InputNumberNote(repository.Notes.Count);
+                        ConsoleHelper.PrintOneNote(repository, numberNote);
+                        repository.DeleteNote(numberNote);
+                        Console.WriteLine("Заметка удалена . . .");
+                    }
+                    else
+                    {
+                        var ss = from i in repository.Notes
+                                 orderby i.CreateDate
+                                 select i;
+                        ConsoleHelper.PrintAllNotes(ss);
+                    }
 
-                    //var ss = from i in repository.Notes
-                    //         orderby i.CreateDate
-                    //         select i;
-                    //repository.Notes = (List<Note>)ss;
+
+
+
+
 
                     break;
 
@@ -120,6 +127,7 @@ namespace HW7
                     Console.WriteLine(" - /add auto  - добавить заметки автоматически");
                     Console.WriteLine(" - /edit      - изменить заметку");
                     Console.WriteLine(" - /dell      - удалить заметку");
+                    Console.WriteLine(" - /dell all  - удалить все заметки");
                     Console.WriteLine(" - /clear     - очистить экран");
 
 
