@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using System.Linq;
+using System.Globalization;
 
 namespace HW7
 {
@@ -235,6 +236,33 @@ namespace HW7
 
             return number;
         }
+
+        /// <summary>
+        /// Метод корректного ввода даты с проверкой Диапазона
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime InputDate(DateTime minValue, DateTime maxValue)
+        {
+            DateTime data; // date 
+            string input;
+            bool result;
+            do
+            {
+                Console.Write("Введите дату в формате дд.ММ.гггг (день.месяц.год):");
+                input = Console.ReadLine();
+                result = DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out data);
+                if (data > maxValue || data < minValue)
+                {
+                    result = false;
+                    Console.WriteLine("Не верно введена дата, повторите ввод");
+                }
+            }
+            while (!result);
+
+            return data;
+        }
+
+
         /// <summary>
         /// Серилизация в XML
         /// </summary>
