@@ -9,10 +9,18 @@ namespace HW7
         {
             Console.WriteLine("*******************************************************************");
             Console.WriteLine("**                       ЕЖЕДНЕВНИК v0.0.1                       **");
-            Console.WriteLine("**           Для получения списка команд введите /help           **");
+            Console.WriteLine("**                         Инициализация                         **");
             Console.WriteLine("*******************************************************************");
+            string patchXml = "xmlRep.xml";
+            string patchJson = "jsonRep.json";
 
-            string patch = "xmlRep.xml";
+            Console.WriteLine("Чтобы работать с ЕЖЕДНЕВНИКОМ определите тип файла, где будут зранится данные");
+            Console.WriteLine("Мы можем работать с XML и JSON");
+
+            string patch = ConsoleHelper.EnterYesNo("Хотите выбрать XML (Y/N)") ? patchXml : patchJson;
+                     
+
+            
             if (File.Exists(patch) == false)
             {
                 using (File.Create(patch)) { };
@@ -21,8 +29,15 @@ namespace HW7
 
             if (!isFileEmpty)
             {
-                repository = ConsoleHelper.XmlDeserializeRepository(patch);
-                //repository = ConsoleHelper.JsonDeserializeRepository("jsonRep.json");
+                switch (patch)
+                {
+                    case "xmlRep.xml":
+                        repository = ConsoleHelper.XmlDeserializeRepository(patch);
+                        break;
+                    case "jsonRep.json":
+                        repository = ConsoleHelper.JsonDeserializeRepository("jsonRep.json");
+                        break;
+                }
             }
             else 
             {
@@ -33,6 +48,14 @@ namespace HW7
                 }
             }
 
+
+
+
+            Console.Clear();
+            Console.WriteLine("*******************************************************************");
+            Console.WriteLine("**                       ЕЖЕДНЕВНИК v0.0.1                       **");
+            Console.WriteLine("**           Для получения списка команд введите /help           **");
+            Console.WriteLine("*******************************************************************");
 
         }
     }

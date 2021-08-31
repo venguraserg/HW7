@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace HW7
 {
@@ -131,32 +133,59 @@ namespace HW7
             return status;
         }
 
-        
+        public static int FildSelection()
+        {
+            var input = Console.ReadKey(true);
 
+            if (input.Key == ConsoleKey.D0 || input.Key == ConsoleKey.NumPad0)
+            {
+                return 0;
+            }
+            else if (input.Key == ConsoleKey.D1 || input.Key == ConsoleKey.NumPad1)
+            {
+                return 1;
+            }
+            else if (input.Key == ConsoleKey.D2 || input.Key == ConsoleKey.NumPad2)
+            {
+                return 2;
+            }
+            else if (input.Key == ConsoleKey.D3 || input.Key == ConsoleKey.NumPad3)
+            {
+                return 3;
+            }
+            else
+            {
+                Console.WriteLine("Отмена");
+            }
+            return 4;
+        }
+
+        
         /// <summary>
         /// Метод ввода Да/Нет
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="text">Текстовое сообщение</param>
         /// <returns></returns>
         public static bool EnterYesNo(string text)
         {
             if (text != "") Console.WriteLine(text);
-            char yn;
-            bool correctParse, result = false;
+            ConsoleKeyInfo yn1;
+            
+            bool result = false;
             do
             {
-                correctParse = char.TryParse(Console.ReadLine(), out yn);
-                if (!(yn == 'n' || yn == 'N' || yn == 'y' || yn == 'Y'))
+                yn1 = Console.ReadKey(true);
+                if (!(yn1.Key == ConsoleKey.Y || yn1.Key == ConsoleKey.N))
                 {
                     Console.WriteLine("Не корректный ввод, попробуйте еще раз...");
                 }
-            } while (!(correctParse && (yn == 'n' || yn == 'N' || yn == 'y' || yn == 'Y')));
+            } while (!(yn1.Key == ConsoleKey.Y || yn1.Key == ConsoleKey.N));
 
-            if (yn == 'y' || yn == 'Y')
+            if (yn1.Key == ConsoleKey.Y)
             {
                 result = true;
             }
-            else if (yn == 'n' || yn == 'N')
+            else if (yn1.Key == ConsoleKey.N)
             {
                 result = false;
             }

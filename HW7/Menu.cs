@@ -85,25 +85,40 @@ namespace HW7
                     }
                     else
                     {
-                        var ss = from i in repository.Notes
-                                 orderby i.Status
-                                 select i;
+                        Console.WriteLine(">Выберите поле, по которому будем удалять запись");
+                        Console.WriteLine("0 - по дате, 1 - по заголовку, 2 - по создателю, 3 - по статусу, Другой символ - Отмена: ");
 
-                        List<Note> tempNotes = new List<Note>();
-                            
-                        foreach(var i in ss)
-                        {
-                            tempNotes.Add(i);
-                        }
-                        repository = new Repository(tempNotes);
+                        var fildNumber = ConsoleHelper.FildSelection();
+
+                        //repository.Notes.IndexOf()
+
                         ConsoleHelper.PrintAllNotes(repository);
-                        
+
                     }
 
 
 
 
 
+
+                    break;
+
+                    //кейс сортировки
+                case "sort":
+                    Console.WriteLine("*******************************************************************");
+                    Console.WriteLine("**                    Сортировка всех заметки                    **");
+                    Console.WriteLine("*******************************************************************");
+                    Console.WriteLine("Выберите столбец по которому нужно отсортировать");
+                    Console.WriteLine("0 - по дате, 1 - по заголовку, 2 - по создателю, 3 - по статусу, Другой символ - отмена: ");
+
+                    var numberField = ConsoleHelper.FildSelection();
+
+                    repository.Notes = repository.SortRepository(numberField);
+
+                    if (numberField >= 0 && numberField < 4)
+                    {
+                        ConsoleHelper.PrintAllNotes(repository);
+                    }
 
                     break;
 
@@ -135,6 +150,11 @@ namespace HW7
                     Console.WriteLine(" - /add       - добавить заметку");
                     Console.WriteLine(" - /add auto  - добавить заметки автоматически");
                     Console.WriteLine(" - /edit      - изменить заметку");
+
+                    Console.WriteLine(" - /sort      - сортировка ежедневника");
+                    
+
+
                     Console.WriteLine(" - /dell      - удалить заметку");
                     Console.WriteLine(" - /dell all  - удалить все заметки");
                     Console.WriteLine(" - /clear     - очистить экран");

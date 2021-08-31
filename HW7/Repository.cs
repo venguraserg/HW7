@@ -81,6 +81,63 @@ namespace HW7
             Notes.Clear();            
         }
 
-        
+        /// <summary>
+        /// Сортировка репозитория по полям
+        /// </summary>
+        /// <param name="repository">Репозиторий для сортировки</param>
+        /// <param name="fildNumber">Номер сортируемого поля
+        /// 0 - сортировка по дате
+        /// 1 - сортировка по заголовку
+        /// 2 - сортировка по создателю
+        /// 3 - сортировка по статусу</param>
+        /// <returns>отсортированый репозиторий</returns>
+        public List<Note> SortRepository(int fildNumber)
+        {
+            IOrderedEnumerable<Note> sortNotes = null;
+            switch (fildNumber)
+            {
+                // Сортировка по дате
+                case 0:
+                    sortNotes = from i in Notes
+                                orderby i.CreateDate
+                                select i;
+                    break;
+                // Сортировка по заголовку
+                case 1:
+                    sortNotes = from i in Notes
+                                orderby i.Title
+                                select i;
+                    break;
+                // сортировка по создателю
+                case 2:
+                    sortNotes = from i in Notes
+                                orderby i.Creator
+                                select i;
+                    break;
+                // Сортировка по статусу
+                case 3:
+                    sortNotes = from i in Notes
+                                orderby i.Status
+                                select i;
+                    break;
+                default:
+                    return Notes;
+
+
+            }
+
+            List<Note> tempNotes = new List<Note>();
+
+            foreach (var i in sortNotes)
+            {
+                tempNotes.Add(i);
+            }
+
+            return tempNotes;
+
+        }
+
+
+
     }
 }
