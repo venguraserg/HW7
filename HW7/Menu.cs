@@ -6,6 +6,7 @@ namespace HW7
 {
     public static class Menu
     {
+        
         public static bool Start(Repository repository)
         {
             // Меню 
@@ -91,7 +92,7 @@ namespace HW7
                         var fildNumber = ConsoleHelper.FildSelection();
 
                         //repository.Notes.IndexOf()
-
+                        Console.ReadKey();
                         ConsoleHelper.PrintAllNotes(repository);
 
                     }
@@ -138,6 +139,11 @@ namespace HW7
                     Console.Clear();
                     break;
 
+                //кейс сохранения данных в файл
+                case "save":
+                    ConsoleHelper.SaveData(repository);
+                    Console.WriteLine("Данные успешно сохранены . . .");
+                    break;
 
                 //кейс "СПРАВКА"
                 case "help":                    
@@ -152,26 +158,22 @@ namespace HW7
                     Console.WriteLine(" - /edit      - изменить заметку");
 
                     Console.WriteLine(" - /sort      - сортировка ежедневника");
-                    
 
 
+                    Console.WriteLine(" - /save      - сохранить данные");
                     Console.WriteLine(" - /dell      - удалить заметку");
                     Console.WriteLine(" - /dell all  - удалить все заметки");
                     Console.WriteLine(" - /clear     - очистить экран");
 
-
+                    
                     Console.WriteLine(" - /quit      - выход из приложения");
                     break;
 
+                    
                 //кейс выхода из цикла
                 case "quit":
                     quit = false;
-                    if (ConsoleHelper.EnterYesNo("Хотите сохранить данные (Y/N):"))
-                    {
-                        ConsoleHelper.XmlSerializeRepository(repository, "xmlRep.xml");
-                        ConsoleHelper.JsonSerializeRepository(repository, "jsonRep.json");
-                    }
-                    Console.WriteLine("");
+                    ConsoleHelper.SaveData(repository);
                     break;
 
                 default:
@@ -184,8 +186,9 @@ namespace HW7
         }
 
         
-        
 
-       
+
+
+
     }
 }

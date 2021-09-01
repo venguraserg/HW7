@@ -5,16 +5,21 @@ using System.Linq;
 
 namespace HW7
 {
-    class Init
+    public class Init
     {
+        public static string _patch = "repository";
+
         internal static void Initialization(ref Repository repository)
         {
             Console.WriteLine("*******************************************************************");
             Console.WriteLine("**                       ЕЖЕДНЕВНИК v0.0.1                       **");
             Console.WriteLine("**                         Инициализация                         **");
             Console.WriteLine("*******************************************************************");
-            string patchXml = "xmlRep.xml";
-            string patchJson = "jsonRep.json";
+
+
+
+            string patchXml = _patch + ".xml";
+            string patchJson = _patch + ".json";
 
             Console.WriteLine("Чтобы работать с ЕЖЕДНЕВНИКОМ определите тип файла, где будут зранится данные");
             Console.WriteLine("Мы можем работать с XML и JSON");
@@ -31,25 +36,19 @@ namespace HW7
 
             if (!isFileEmpty)
             {
-                switch (patch)
-                {
-                    case "xmlRep.xml":
-                        repository = ConsoleHelper.XmlDeserializeRepository(patch);
-                        break;
-                    case "jsonRep.json":
-                        repository = ConsoleHelper.JsonDeserializeRepository("jsonRep.json");
-                        break;
-                }
+
+                repository = patch == patchXml ? ConsoleHelper.XmlDeserializeRepository(patch) : ConsoleHelper.JsonDeserializeRepository(patch);
+                
 
                 if(!ConsoleHelper.EnterYesNo("Загрузить ВСЕ записи (Y/N)"))
                 {
                     Console.WriteLine("Загрузим по диапазону дат.");
-                    var temp1 = from note in repository.Notes
+                    var repDateDiapason = from note in repository.Notes
                              orderby note.CreateDate
                              select note.CreateDate;
-
-                    var minDateRepos = temp1.Min();
-                    var maxDateRepos = temp1.Max();
+                    
+                    var minDateRepos = repDateDiapason.Min();
+                    var maxDateRepos = repDateDiapason.Max();
                     Console.WriteLine($"В ежедневнике записи с {minDateRepos.ToShortDateString()}по {maxDateRepos.ToShortDateString()}");
                     Console.WriteLine("Введите даты из этого диапазона");
                     Console.WriteLine("Введите начало диапазона: ");
@@ -57,23 +56,9 @@ namespace HW7
                     Console.WriteLine("Введите конец диапазона: ");
                     var maxDate = ConsoleHelper.InputDate(minDateRepos, maxDateRepos);
 
-                    var tempRepo = from note in repository.Notes
-                                   where note.CreateDate > minDate
-                                   where note.CreateDate < maxDate
-                                   select note;
-
-
-                    List<Note> tempNotes = new List<Note>();
-
-                    foreach (var i in tempRepo)
-                    {
-                        tempNotes.Add(i);
-                    }
-
-                    repository = new Repository(tempNotes);
-
-
-                    //Console.ReadKey();
+                    var tempRepo = repository.Notes.Where(i => i.CreateDate > minDate && i.CreateDate < maxDate).ToList<Note>();
+                    repository = new Repository(tempRepo);
+                    
                 }
                 
                

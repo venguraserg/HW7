@@ -4,9 +4,10 @@ namespace HW7
 {
     class Program
     {
-       
+        
         static void Main(string[] args)
         {
+            
             //Инициализация параметров
             Repository repository = new Repository();
             Init.Initialization(ref repository);

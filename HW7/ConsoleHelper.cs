@@ -133,7 +133,10 @@ namespace HW7
             } while (isCorrectParse == false || (status < Status.Important || status > Status.NotRelevant));
             return status;
         }
-
+        /// <summary>
+        /// Выбор поля репозитория
+        /// </summary>
+        /// <returns></returns>
         public static int FildSelection()
         {
             var input = Console.ReadKey(true);
@@ -161,7 +164,21 @@ namespace HW7
             return 4;
         }
 
-        
+
+        /// <summary>
+        /// Записать репозиторий в файл
+        /// </summary>
+        /// <param name="repository"></param>
+        public static void SaveData(Repository repository)
+        {
+            if (EnterYesNo("Хотите сохранить данные (Y/N):"))
+            {
+                XmlSerializeRepository(repository, Init._patch+".xml");
+                JsonSerializeRepository(repository, Init._patch + ".json");
+            }
+            Console.WriteLine("");
+        }
+
         /// <summary>
         /// Метод ввода Да/Нет
         /// </summary>

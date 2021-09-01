@@ -93,47 +93,30 @@ namespace HW7
         /// <returns>отсортированый репозиторий</returns>
         public List<Note> SortRepository(int fildNumber)
         {
-            IOrderedEnumerable<Note> sortNotes = null;
+            //IOrderedEnumerable<Note> sortNotes = null;
             switch (fildNumber)
             {
                 // Сортировка по дате
                 case 0:
-                    sortNotes = from i in Notes
-                                orderby i.CreateDate
-                                select i;
+                    Notes = Notes.OrderBy(i => i.CreateDate).ToList<Note>();
                     break;
                 // Сортировка по заголовку
                 case 1:
-                    sortNotes = from i in Notes
-                                orderby i.Title
-                                select i;
+                    Notes = Notes.OrderBy(i => i.Title).ToList<Note>();
                     break;
                 // сортировка по создателю
                 case 2:
-                    sortNotes = from i in Notes
-                                orderby i.Creator
-                                select i;
+                    Notes = Notes.OrderBy(i => i.Creator).ToList<Note>();
                     break;
                 // Сортировка по статусу
                 case 3:
-                    sortNotes = from i in Notes
-                                orderby i.Status
-                                select i;
+                    Notes = Notes.OrderBy(i => i.Status).ToList<Note>();
                     break;
                 default:
                     return Notes;
-
-
             }
 
-            List<Note> tempNotes = new List<Note>();
-
-            foreach (var i in sortNotes)
-            {
-                tempNotes.Add(i);
-            }
-
-            return tempNotes;
+            return Notes;
 
         }
 
