@@ -7,7 +7,7 @@ namespace HW7
     public static class Menu
     {
         
-        public static bool Start(Repository repository)
+        public static bool Start(ref Repository repository)
         {
             // Меню 
             bool quit = true;
@@ -90,17 +90,80 @@ namespace HW7
                         Console.WriteLine("0 - по дате, 1 - по заголовку, 2 - по создателю, 3 - по статусу, Другой символ - Отмена: ");
 
                         var fildNumber = ConsoleHelper.FildSelection();
+                        Console.WriteLine("*******************************************************************");
+                        switch (fildNumber)
+                        {
+                            case 0:
+                                Console.WriteLine("Удалим все заметки по определенной дате.");
+                                var repDateDiapason = from note in repository.Notes
+                                                      orderby note.CreateDate
+                                                      select note.CreateDate;
+                                                                
+                                var tempDate = ConsoleHelper.InputDate(repDateDiapason.Min(), repDateDiapason.Max());
 
-                        //repository.Notes.IndexOf()
-                        Console.ReadKey();
-                        ConsoleHelper.PrintAllNotes(repository);
+                                var tempRepos = repository.Notes.Where(i => i.CreateDate == tempDate).ToList<Note>();
+
+                                repository = new Repository(repository.Notes.Except(tempRepos).ToList<Note>());
+                                
+                                break;
+                            case 1:
+                                Console.WriteLine("Удалим все заметки по заголовку.");
+                                Console.Write("Введите заголовок заметки: ");
+                                string tempTitle = Console.ReadLine();
+
+                                tempRepos = repository.Notes.Where(i => i.Title == tempTitle).ToList<Note>();
+
+                                if(tempRepos.Count==0)
+                                {
+                                    Console.WriteLine($"Заметки с заголовком {tempTitle} не найдена. . .");
+                                }
+                                else
+                                {
+                                    repository = new Repository(repository.Notes.Except(tempRepos).ToList<Note>());
+                                }
+                                break;
+
+                            case 2:
+                                Console.WriteLine("Удалим все заметки по имени создателя.");
+                                Console.Write("Введите создателя заметки: ");
+                                string tempCreator = Console.ReadLine();
+
+                                tempRepos = repository.Notes.Where(i => i.Creator == tempCreator).ToList<Note>();
+
+                                if (tempRepos.Count == 0)
+                                {
+                                    Console.WriteLine($"Создатель с именем {tempCreator} не найден. . .");
+                                }
+                                else
+                                {
+                                    repository = new Repository(repository.Notes.Except(tempRepos).ToList<Note>());
+                                }
+                                break;
+                            case 3:
+                                Console.WriteLine("Удалим все заметки по статусу.");
+                                Console.Write("Введите статус заметки: ");
+                                var tempStatus = ConsoleHelper.InputStatusNote();
+
+                                tempRepos = repository.Notes.Where(i => i.Status == tempStatus).ToList<Note>();
+
+                                if (tempRepos.Count == 0)
+                                {
+                                    Console.WriteLine($"Заметка со статусом {tempStatus} не найдена. . .");
+                                }
+                                else
+                                {
+                                    repository = new Repository(repository.Notes.Except(tempRepos).ToList<Note>());
+                                }
+                                break;
+
+                            default:
+                                break;
+                        }
+                        
+                        //Console.ReadKey();
+                        //ConsoleHelper.PrintAllNotes(repository);
 
                     }
-
-
-
-
-
 
                     break;
 
@@ -156,16 +219,11 @@ namespace HW7
                     Console.WriteLine(" - /add       - добавить заметку");
                     Console.WriteLine(" - /add auto  - добавить заметки автоматически");
                     Console.WriteLine(" - /edit      - изменить заметку");
-
                     Console.WriteLine(" - /sort      - сортировка ежедневника");
-
-
                     Console.WriteLine(" - /save      - сохранить данные");
                     Console.WriteLine(" - /dell      - удалить заметку");
                     Console.WriteLine(" - /dell all  - удалить все заметки");
                     Console.WriteLine(" - /clear     - очистить экран");
-
-                    
                     Console.WriteLine(" - /quit      - выход из приложения");
                     break;
 

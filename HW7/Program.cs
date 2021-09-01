@@ -14,7 +14,7 @@ namespace HW7
               
 
             // Запуск цикла программы 
-            while (Menu.Start(repository))
+            while (Menu.Start(ref repository))
             {
 
             }
